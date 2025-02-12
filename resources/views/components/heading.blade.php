@@ -1,5 +1,5 @@
-@props(['title'])
+@props(['title', 'counter'])
 
 <h1 class="font-bold text-2xl text-gray-800 text-center">
-    {{ $title }}
+    {{ $title }} ({{ $counter }})
 </h1>
