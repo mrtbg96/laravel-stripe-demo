@@ -9,7 +9,7 @@
     <body class="bg-gray-50 w-[72%] py-6 min-h-dvh mx-auto antialiased">
         <x-header />
 
-        <main class="mt-16">
+        <section class="mt-16">
             <div class="flex justify-between items-center">
                 <x-heading title="Products" :counter="count($products)" />
                 @unless (count($products) == 0)
@@ -48,6 +48,60 @@
                     </div>
                 @endforeach
             </div>
-        </main>
+        </section>
+
+        <section class="mt-16">
+            <div class="flex justify-between items-center">
+                <x-heading title="Orders" :counter="count($orders)" />
+                <span></span>
+            </div>
+
+            <div class="mt-12">
+                <div class="relative overflow-x-auto">
+                    <table class="w-full text-sm text-left text-gray-500">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 border-b border-gray-700">
+                            <tr>
+                                <th scope="col" class="px-6 py-3">
+                                    ID
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Session ID
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Total Price
+                                </th>
+                                <th scope="col" class="px-6 py-3">
+                                    Status
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @forelse ($orders as $order)
+                                <tr class="border-b border-gray-200">
+                                    <th scope="row" class="px-6 py-4 font-medium whitespace-nowrap">
+                                        {{ $order->id }}
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        {{ $order->session_id }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        ${{ $order->total_price }}
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <x-badge :status="$order->status" />
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr class="border-b border-gray-200">
+                                    <td scope="row" colspan="4" class="px-6 py-4 text-center">
+                                        No data found!
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
     </body>
 </html>
